@@ -18,6 +18,18 @@ app.get('/ping', (req, res) => {
     res.send('PONG')
 })
 
+app.get('/users', async(req, res) => {
+    try {
+        const users = await User.find({})
+        res.status(200).json(users)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
+
 app.post('/user', async(req, res) => {
     try{
         const user = await User.create(req.body)
